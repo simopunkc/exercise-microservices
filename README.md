@@ -1,1 +1,5 @@
-# user-services
+# microservices
+
+```shellscript
+docker-compose up -d
+```
