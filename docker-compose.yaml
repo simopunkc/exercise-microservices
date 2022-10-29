@@ -7,7 +7,7 @@ services:
     ports:
       - "3306"
     volumes:
-      - ./course.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./exercise-service/course.sql:/docker-entrypoint-initdb.d/dump.sql
     environment:
       MYSQL_USER: nonroot
       MYSQL_PASSWORD: nonroot
@@ -15,7 +15,7 @@ services:
       MYSQL_DATABASE: course2
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
+      timeout: 120s
       retries: 10
     networks:
       - mynet

@@ -1,4 +1,4 @@
-package service
+package util
 
 import (
 	"os"
@@ -11,7 +11,7 @@ var (
 	signatureKey []byte = []byte(os.Getenv("JWT_PRIVATE_KEY"))
 )
 
-func generateJWT(userID int) (string, error) {
+func GenerateJWT(userID int64) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id": userID,
 		"exp":     time.Now().Add(24 * time.Hour).Unix(),

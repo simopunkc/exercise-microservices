@@ -1,42 +1,42 @@
 package main
 
 import (
-	"exercise-service/internal/database"
-	"exercise-service/internal/exercise"
-	"exercise-service/internal/middleware"
-	"exercise-service/internal/user"
-	"exercise-service/internal/user/repository"
+	exerciseRoute "exercise-service/internal/app/exercise/route"
+	"exercise-service/internal/pkg/middleware"
 	"log"
-	"net/http"
 	"os"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 )
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Llongfile)
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	r := gin.Default()
-	r.GET("/hello", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "hello world",
-		})
+
+	config := fiber.Config{
+		ServerHeader:  "Gramedia",
+		StrictRouting: true,
+		CaseSensitive: true,
+	}
+	app := fiber.New(config)
+
+	app.Use(logger.New(logger.Config{
+		Format:     "${time} ${method} ${path} ${status}\n",
+		TimeFormat: "02-Jan-2006 15:04:05",
+	}))
+
+	app.Get("/health", func(c *fiber.Ctx) error {
+		return c.Status(200).Send(nil)
 	})
 
-	db := database.NewConnDatabase()
-	exerciseService := exercise.NewExerciseUsecase(db)
-	// repo := repository.NewDatabaseRepo(db)
-	repo := repository.NewMicroserviceRepo()
-	userUsecase := user.NewUserUsecase(repo)
-	r.POST("/exercises", middleware.WithJWT(userUsecase), exerciseService.CreateExercise)
-	r.POST("/exercises/:id/questions", middleware.WithJWT(userUsecase), exerciseService.CreateQuestion)
-	r.POST("/exercises/:id/questions/:qid/answers", middleware.WithJWT(userUsecase), exerciseService.CreateAnswer)
+	homepage := app.Group("", middleware.SetSecurityHeader)
 
-	r.GET("/exercises/:id", middleware.WithJWT(userUsecase), exerciseService.GetExerciseByID)
-	r.GET("/exercises/:id/score", middleware.WithJWT(userUsecase), exerciseService.CalculateUserScore)
+	exerciseRoute.NewRouteExercise(homepage)
 
-	r.Run(":" + os.Getenv("APP_PORT"))
+	app.Listen(":" + os.Getenv("APP_PORT"))
 }
