@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "1fc237e7-659b-45e3-a22c-85abd5f3d606",
+		"name": "Go Exercise-Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15607681"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var token = JSON.parse(responseBody).raw_response;",
+							"pm.globals.set(\"api-token\",'Bearer'+ ' ' + token);",
+							"",
+							"pm.test('response body', () => {",
+							"    const respJson = pm.response.json().raw_response;",
+							"    pm.expect(respJson).not.eq(undefined);",
+							"    pm.expect(respJson).not.eq(null);",
+							"    pm.expect(respJson).not.eq('');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"testing\",\n    \"email\": \"testing@web.com\",\n    \"password\": \"testing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{user-container}}/register",
+					"host": [
+						"{{user-container}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var token = JSON.parse(responseBody).raw_response;",
+							"pm.globals.set(\"api-token\",'Bearer'+ ' ' + token);",
+							"",
+							"pm.test('response body', () => {",
+							"    const respJson = pm.response.json().raw_response;",
+							"    pm.expect(respJson).not.eq(undefined);",
+							"    pm.expect(respJson).not.eq(null);",
+							"    pm.expect(respJson).not.eq('');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"testing@web.com\",\n    \"password\": \"testing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{user-container}}/login",
+					"host": [
+						"{{user-container}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:1234/exercises/:id_exercise",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{api-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{exercise-container}}/exercises/1",
+					"host": [
+						"{{exercise-container}}"
+					],
+					"path": [
+						"exercises",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:1234/exercises/:id_exercise/score",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{api-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{exercise-container}}/exercises/1/score",
+					"host": [
+						"{{exercise-container}}"
+					],
+					"path": [
+						"exercises",
+						"1",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:1234/exercises",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{api-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"new exercises\",\n    \"description\": \"lorem ipsum dolor sir amet\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{exercise-container}}/exercises",
+					"host": [
+						"{{exercise-container}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:1234/exercises/:id_exercise/questions",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{api-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"body\": \"Berapa Jumlah hasil dari 4 % 2?\",\n    \"option_a\": \"0\",\n    \"option_b\": \"1\",\n    \"option_c\": \"2\",\n    \"option_d\": \"3\",\n    \"correct_answer\": \"a\",\n    \"score\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{exercise-container}}/exercises/2/questions",
+					"host": [
+						"{{exercise-container}}"
+					],
+					"path": [
+						"exercises",
+						"2",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:1234/exercises/:id_exercise/questions/:id_question/answers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{api-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"answer\": \"b\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{exercise-container}}/exercises/2/questions/11/answers",
+					"host": [
+						"{{exercise-container}}"
+					],
+					"path": [
+						"exercises",
+						"2",
+						"questions",
+						"11",
+						"answers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
