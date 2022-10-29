@@ -1,9 +1,14 @@
 # microservices
 
+**Tested**
+
+- Go 1.19.2
+- Docker Compose v2.12.2
+
 **Start Docker Compose**
 
 ```shellscript
-docker compose up -d
+bash start.sh
 ```
 
 **Rebuild image (optional)**
