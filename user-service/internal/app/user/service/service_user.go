@@ -9,6 +9,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+//go:generate moq -out service_user_mock_test.go . RepositoryUser
 type RepositoryUser interface {
 	GetByID(ctx context.Context, id int64) domain.Repository
 	GetByEmail(ctx context.Context, email string) domain.Repository

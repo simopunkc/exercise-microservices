@@ -73,5 +73,5 @@ type Handler struct {
 	Exercise    *Exercise `json:"exercise,omitempty"`
 	Score       *Score    `json:"score,omitempty"`
 	RawResponse string    `json:"raw_response,omitempty"`
-	Error       error     `json:"error,omitempty"`
+	Error       string    `json:"error,omitempty"`
 }

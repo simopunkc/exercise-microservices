@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+//go:generate moq -out service_user_mock_test.go . RepositoryUser
 type RepositoryUser interface {
 	IsUserExists(ctx context.Context, userID int64) bool
 }

@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"errors"
 	"strconv"
 	"user-service/internal/app/domain"
 
@@ -29,7 +28,7 @@ func (hu HandlerUser) Login(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid input"),
+			Error: "invalid input",
 		})
 	}
 
@@ -37,7 +36,7 @@ func (hu HandlerUser) Login(c *fiber.Ctx) error {
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: service.Error,
+			Error: service.Error.Error(),
 		})
 	}
 
@@ -53,7 +52,7 @@ func (hu HandlerUser) Register(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid input"),
+			Error: "invalid input",
 		})
 	}
 
@@ -61,7 +60,7 @@ func (hu HandlerUser) Register(c *fiber.Ctx) error {
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: service.Error,
+			Error: service.Error.Error(),
 		})
 	}
 
@@ -77,7 +76,7 @@ func (hu HandlerUser) GetInternalByID(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid user id"),
+			Error: "invalid user id",
 		})
 	}
 
@@ -85,7 +84,7 @@ func (hu HandlerUser) GetInternalByID(c *fiber.Ctx) error {
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: service.Error,
+			Error: service.Error.Error(),
 		})
 	}
 

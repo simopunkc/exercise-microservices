@@ -43,5 +43,5 @@ type Handler struct {
 	StatusCode  int    `json:"status_code,omitempty"`
 	User        *User  `json:"user,omitempty"`
 	RawResponse string `json:"raw_response,omitempty"`
-	Error       error  `json:"error,omitempty"`
+	Error       string `json:"error,omitempty"`
 }

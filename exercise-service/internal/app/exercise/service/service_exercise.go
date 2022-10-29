@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+//go:generate moq -out service_exercise_mock_test.go . RepositoryExercise
 type RepositoryExercise interface {
 	GetExerciseByID(id int64) domain.Repository
 	GetPublicExerciseByID(id int64) domain.Repository
@@ -105,6 +106,19 @@ func (se ServiceExercise) CreateExercise(exercise domain.Exercise) domain.Servic
 			Description: exercise.Description,
 		},
 	}
+}
+
+func (se ServiceExercise) CheckIsInvalidAnswer(answer string) bool {
+	validAnswer := []string{"a", "b", "c", "d"}
+	invalidAnswer := true
+	lowerCaseAnswer := strings.ToLower(answer)
+	for _, v := range validAnswer {
+		if v == lowerCaseAnswer {
+			invalidAnswer = false
+			break
+		}
+	}
+	return invalidAnswer
 }
 
 func (se ServiceExercise) CreateQuestion(question domain.Question) domain.Service {

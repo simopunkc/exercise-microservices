@@ -5,7 +5,7 @@
 - Database
   - [gorm](https://gorm.io/)
 - Routing framework
-  - [gin gonic](https://gin-gonic.com/)
+  - [fiber](https://docs.gofiber.io/)
 
 ## Dependencies
 

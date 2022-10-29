@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"errors"
 	"exercise-service/internal/app/domain"
 	"strconv"
 
@@ -12,6 +11,7 @@ type ServiceExercise interface {
 	GetExerciseByID(id int64) domain.Service
 	CalculateUserScore(id int64, userID int64) domain.Service
 	CreateExercise(exercise domain.Exercise) domain.Service
+	CheckIsInvalidAnswer(answer string) bool
 	CreateQuestion(question domain.Question) domain.Service
 	CreateAnswer(answer domain.Answer) domain.Service
 }
@@ -30,7 +30,7 @@ func (he HandlerExercise) GetExerciseByID(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid exercise id"),
+			Error: "invalid exercise id",
 		})
 	}
 
@@ -38,7 +38,7 @@ func (he HandlerExercise) GetExerciseByID(c *fiber.Ctx) error {
 	if exercise.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("exercise not found"),
+			Error: "exercise not found",
 		})
 	}
 
@@ -54,7 +54,7 @@ func (he HandlerExercise) CalculateUserScore(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid exercise id"),
+			Error: "invalid exercise id",
 		})
 	}
 
@@ -62,7 +62,7 @@ func (he HandlerExercise) CalculateUserScore(c *fiber.Ctx) error {
 	if exercise.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("exercise not found"),
+			Error: "exercise not found",
 		})
 	}
 
@@ -71,7 +71,7 @@ func (he HandlerExercise) CalculateUserScore(c *fiber.Ctx) error {
 	if answers.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("error when find answers"),
+			Error: "error when find answers",
 		})
 	}
 
@@ -87,21 +87,21 @@ func (he HandlerExercise) CreateExercise(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid input"),
+			Error: "invalid input",
 		})
 	}
 
 	if exercise.Title == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field title must required"),
+			Error: "field title must required",
 		})
 	}
 
 	if exercise.Description == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field description must required"),
+			Error: "field description must required",
 		})
 	}
 
@@ -109,7 +109,7 @@ func (he HandlerExercise) CreateExercise(c *fiber.Ctx) error {
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("failed when create exercise"),
+			Error: "failed when create exercise",
 		})
 	}
 
@@ -125,7 +125,7 @@ func (he HandlerExercise) CreateQuestion(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid exercise id"),
+			Error: "invalid exercise id",
 		})
 	}
 
@@ -138,56 +138,56 @@ func (he HandlerExercise) CreateQuestion(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid input"),
+			Error: "invalid input",
 		})
 	}
 
 	if question.Body == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field body must required"),
+			Error: "field body must required",
 		})
 	}
 
 	if question.OptionA == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field option_a must required"),
+			Error: "field option_a must required",
 		})
 	}
 
 	if question.OptionB == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field option_b must required"),
+			Error: "field option_b must required",
 		})
 	}
 
 	if question.OptionC == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field option_c must required"),
+			Error: "field option_c must required",
 		})
 	}
 
 	if question.OptionD == "" {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field option_d must required"),
+			Error: "field option_d must required",
 		})
 	}
 
-	if question.CorrectAnswer == "" {
+	if he.serviceExercise.CheckIsInvalidAnswer(question.CorrectAnswer) {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field correct_answer must required"),
+			Error: "field correct_answer must required",
 		})
 	}
 
 	if question.Score == 0 {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field score must required"),
+			Error: "field score must required",
 		})
 	}
 
@@ -195,7 +195,7 @@ func (he HandlerExercise) CreateQuestion(c *fiber.Ctx) error {
 	if service.Error != nil {
 		return c.Status(500).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("failed when create question"),
+			Error: "failed when create question",
 		})
 	}
 
@@ -211,7 +211,7 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid exercise id"),
+			Error: "invalid exercise id",
 		})
 	}
 
@@ -222,7 +222,7 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid question id"),
+			Error: "invalid question id",
 		})
 	}
 
@@ -233,14 +233,14 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("invalid input"),
+			Error: "invalid input",
 		})
 	}
 
-	if answer.Answer == "" {
+	if he.serviceExercise.CheckIsInvalidAnswer(answer.Answer) {
 		return c.Status(400).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("field answer must required"),
+			Error: "field answer must required",
 		})
 	}
 
@@ -248,7 +248,7 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	if service.Error != nil {
 		return c.Status(500).JSON(domain.Handler{
 			Hash:  "",
-			Error: errors.New("failed when create answer"),
+			Error: "failed when create answer",
 		})
 	}
 
