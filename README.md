@@ -21,9 +21,5 @@ docker compose stop exercise-container user-container
 **Teardown**
 
 ```shellscript
-docker compose down
-docker compose rm -f
-sleep 5
-docker volume rm $(docker volume ls -q)
-sleep 5
+bash stop.sh
 ```
