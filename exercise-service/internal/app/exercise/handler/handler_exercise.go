@@ -29,7 +29,7 @@ func (he HandlerExercise) GetExerciseByID(c *fiber.Ctx) error {
 	id, err := strconv.ParseInt(paramID, 10, 64)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMYJD6mHdxlA",
 			Error: "invalid exercise id",
 		})
 	}
@@ -37,13 +37,13 @@ func (he HandlerExercise) GetExerciseByID(c *fiber.Ctx) error {
 	exercise := he.serviceExercise.GetExerciseByID(id)
 	if exercise.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMuc25aB5HpD",
 			Error: "exercise not found",
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:     "",
+		Hash:     "GMDkZLh5QJyp",
 		Exercise: &exercise.Exercise,
 	})
 }
@@ -53,7 +53,7 @@ func (he HandlerExercise) CalculateUserScore(c *fiber.Ctx) error {
 	id, err := strconv.ParseInt(paramID, 10, 64)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMk6LNXGf9An",
 			Error: "invalid exercise id",
 		})
 	}
@@ -61,7 +61,7 @@ func (he HandlerExercise) CalculateUserScore(c *fiber.Ctx) error {
 	exercise := he.serviceExercise.GetExerciseByID(id)
 	if exercise.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMybk5dxHUjp",
 			Error: "exercise not found",
 		})
 	}
@@ -70,13 +70,13 @@ func (he HandlerExercise) CalculateUserScore(c *fiber.Ctx) error {
 	answers := he.serviceExercise.CalculateUserScore(id, userID)
 	if answers.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMQsb16uYOtU",
 			Error: "error when find answers",
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:  "",
+		Hash:  "GMyTdADK3jo8",
 		Score: &answers.Score,
 	})
 }
@@ -86,21 +86,21 @@ func (he HandlerExercise) CreateExercise(c *fiber.Ctx) error {
 	err := c.BodyParser(&exercise)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMZWgqrhx3Ik",
 			Error: "invalid input",
 		})
 	}
 
 	if exercise.Title == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMwLp1hhi581",
 			Error: "field title must required",
 		})
 	}
 
 	if exercise.Description == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GM2x7de7byvF",
 			Error: "field description must required",
 		})
 	}
@@ -108,13 +108,13 @@ func (he HandlerExercise) CreateExercise(c *fiber.Ctx) error {
 	service := he.serviceExercise.CreateExercise(exercise)
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMDBaAcnswBs",
 			Error: "failed when create exercise",
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:        "",
+		Hash:        "GM47oH52hgKL",
 		RawResponse: service.RawResponse,
 	})
 }
@@ -124,7 +124,7 @@ func (he HandlerExercise) CreateQuestion(c *fiber.Ctx) error {
 	id, err := strconv.ParseInt(paramId, 10, 64)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMRYox3Mnnbv",
 			Error: "invalid exercise id",
 		})
 	}
@@ -137,56 +137,56 @@ func (he HandlerExercise) CreateQuestion(c *fiber.Ctx) error {
 	err = c.BodyParser(&question)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMAxt9cGkA6W",
 			Error: "invalid input",
 		})
 	}
 
 	if question.Body == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMpUACBAKchn",
 			Error: "field body must required",
 		})
 	}
 
 	if question.OptionA == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMsLC5XBPknt",
 			Error: "field option_a must required",
 		})
 	}
 
 	if question.OptionB == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMHr6O8tx0wt",
 			Error: "field option_b must required",
 		})
 	}
 
 	if question.OptionC == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GM67SljLz2Ih",
 			Error: "field option_c must required",
 		})
 	}
 
 	if question.OptionD == "" {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMhLQuldlNvG",
 			Error: "field option_d must required",
 		})
 	}
 
 	if he.serviceExercise.CheckIsInvalidAnswer(question.CorrectAnswer) {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMQgy1xSIFPO",
 			Error: "field correct_answer must required",
 		})
 	}
 
 	if question.Score == 0 {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMprC9t5wiOh",
 			Error: "field score must required",
 		})
 	}
@@ -194,13 +194,13 @@ func (he HandlerExercise) CreateQuestion(c *fiber.Ctx) error {
 	service := he.serviceExercise.CreateQuestion(question)
 	if service.Error != nil {
 		return c.Status(500).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMw3jNyB4w8F",
 			Error: "failed when create question",
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:        "",
+		Hash:        "GMKL4NFQnyZT",
 		RawResponse: service.RawResponse,
 	})
 }
@@ -210,7 +210,7 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	id, err := strconv.ParseInt(paramId, 10, 64)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMHedxuc4hUF",
 			Error: "invalid exercise id",
 		})
 	}
@@ -221,7 +221,7 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	qid, err := strconv.ParseInt(paramIdQuestion, 10, 64)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMe5qvcCFb9r",
 			Error: "invalid question id",
 		})
 	}
@@ -232,14 +232,14 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	err = c.BodyParser(&answer)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMV5AmOUQezB",
 			Error: "invalid input",
 		})
 	}
 
 	if he.serviceExercise.CheckIsInvalidAnswer(answer.Answer) {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMktQCmK1lZj",
 			Error: "field answer must required",
 		})
 	}
@@ -247,13 +247,13 @@ func (he HandlerExercise) CreateAnswer(c *fiber.Ctx) error {
 	service := he.serviceExercise.CreateAnswer(answer)
 	if service.Error != nil {
 		return c.Status(500).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMiQUgFpkQCN",
 			Error: "failed when create answer",
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:        "",
+		Hash:        "GMOVL8vFWr0t",
 		RawResponse: service.RawResponse,
 	})
 }

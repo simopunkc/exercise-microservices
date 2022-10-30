@@ -5,6 +5,12 @@
 - Go 1.19.2
 - Docker Compose v2.12.2
 
+**Run Test (test coverage should be 100%)**
+
+```shellscript
+bash test.sh
+```
+
 **Start Docker Compose**
 
 ```shellscript

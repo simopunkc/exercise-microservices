@@ -7,11 +7,18 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
+type UtilJwt struct {
+}
+
+func NewUtilJwt() *UtilJwt {
+	return &UtilJwt{}
+}
+
 var (
 	signatureKey []byte = []byte(os.Getenv("JWT_PRIVATE_KEY"))
 )
 
-func GenerateJWT(userID int64) (string, error) {
+func (uj UtilJwt) GenerateJWT(userID int64) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id": userID,
 		"exp":     time.Now().Add(24 * time.Hour).Unix(),

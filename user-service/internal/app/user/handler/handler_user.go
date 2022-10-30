@@ -27,7 +27,7 @@ func (hu HandlerUser) Login(c *fiber.Ctx) error {
 	err := c.BodyParser(&param)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMlXoYf29zRo",
 			Error: "invalid input",
 		})
 	}
@@ -35,13 +35,13 @@ func (hu HandlerUser) Login(c *fiber.Ctx) error {
 	service := hu.serviceUser.Login(c.Context(), param)
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GM4l1oLbAhSP",
 			Error: service.Error.Error(),
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:        "",
+		Hash:        "GMuJPADw6w9n",
 		RawResponse: service.RawResponse,
 	})
 }
@@ -51,7 +51,7 @@ func (hu HandlerUser) Register(c *fiber.Ctx) error {
 	err := c.BodyParser(&param)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMmBoEMSHwqX",
 			Error: "invalid input",
 		})
 	}
@@ -59,13 +59,13 @@ func (hu HandlerUser) Register(c *fiber.Ctx) error {
 	service := hu.serviceUser.Register(c.Context(), param)
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMx723OqFFJD",
 			Error: service.Error.Error(),
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash:        "",
+		Hash:        "GM24dvlTZghU",
 		RawResponse: service.RawResponse,
 	})
 }
@@ -75,7 +75,7 @@ func (hu HandlerUser) GetInternalByID(c *fiber.Ctx) error {
 	userID, err := strconv.ParseInt(paramID, 10, 64)
 	if err != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMZI9Gy7lFuW",
 			Error: "invalid user id",
 		})
 	}
@@ -83,13 +83,13 @@ func (hu HandlerUser) GetInternalByID(c *fiber.Ctx) error {
 	service := hu.serviceUser.GetByID(c.Context(), userID)
 	if service.Error != nil {
 		return c.Status(400).JSON(domain.Handler{
-			Hash:  "",
+			Hash:  "GMpn1Q0seY4o",
 			Error: service.Error.Error(),
 		})
 	}
 
 	return c.Status(200).JSON(domain.Handler{
-		Hash: "",
+		Hash: "GMSKL7POOhYc",
 		User: &service.User,
 	})
 }
