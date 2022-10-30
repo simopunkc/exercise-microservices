@@ -7,11 +7,18 @@ import (
 	jwt "github.com/golang-jwt/jwt/v4"
 )
 
+type UtilJwt struct {
+}
+
+func NewUtilJwt() *UtilJwt {
+	return &UtilJwt{}
+}
+
 var (
 	privateKey []byte = []byte(os.Getenv("JWT_PRIVATE_KEY"))
 )
 
-func DecriptJWT(token string) (map[string]interface{}, error) {
+func (uj UtilJwt) DecriptJWT(token string) (map[string]interface{}, error) {
 	parsedToken, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("auth invalid")

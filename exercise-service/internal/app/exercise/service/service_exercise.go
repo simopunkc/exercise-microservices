@@ -31,12 +31,13 @@ func (se ServiceExercise) GetExerciseByID(id int64) domain.Service {
 	if exercise.Error != nil {
 		log.Println(exercise.Error)
 		return domain.Service{
-			Hash:  "",
+			Hash:  "GMvw4Dd7CQ6x",
 			Error: exercise.Error,
 		}
 	}
+
 	return domain.Service{
-		Hash:     "",
+		Hash:     "GMlJLX5vZauq",
 		Exercise: exercise.Exercise,
 	}
 }
@@ -46,7 +47,7 @@ func (se ServiceExercise) CalculateUserScore(id int64, userID int64) domain.Serv
 	if exercise.Error != nil {
 		log.Println(exercise.Error)
 		return domain.Service{
-			Hash:  "",
+			Hash:  "GMcWGOvA4vWh",
 			Error: exercise.Error,
 		}
 	}
@@ -55,14 +56,14 @@ func (se ServiceExercise) CalculateUserScore(id int64, userID int64) domain.Serv
 	if answers.Error != nil {
 		log.Println(exercise.Error)
 		return domain.Service{
-			Hash:  "",
+			Hash:  "GMoIVFp6nc8C",
 			Error: exercise.Error,
 		}
 	}
 
 	if len(answers.ListAnswer) == 0 {
 		return domain.Service{
-			Hash: "",
+			Hash: "GMYQmpAUyq7P",
 			Score: domain.Score{
 				Score: 0,
 			},
@@ -82,7 +83,7 @@ func (se ServiceExercise) CalculateUserScore(id int64, userID int64) domain.Serv
 	}
 
 	return domain.Service{
-		Hash: "",
+		Hash: "GMnozAj8EQ97",
 		Score: domain.Score{
 			Score: score,
 		},
@@ -94,17 +95,13 @@ func (se ServiceExercise) CreateExercise(exercise domain.Exercise) domain.Servic
 	if repo.Error != nil {
 		log.Println(repo.Error)
 		return domain.Service{
-			Hash:  "",
+			Hash:  "GM9jA7ylQP48",
 			Error: repo.Error,
 		}
 	}
 	return domain.Service{
-		Hash: "",
-		Exercise: domain.Exercise{
-			ID:          exercise.ID,
-			Title:       exercise.Title,
-			Description: exercise.Description,
-		},
+		Hash:        "GMDVvaZ47LnR",
+		RawResponse: "exercise created successfully",
 	}
 }
 
@@ -126,12 +123,13 @@ func (se ServiceExercise) CreateQuestion(question domain.Question) domain.Servic
 	if repo.Error != nil {
 		log.Println(repo.Error)
 		return domain.Service{
-			Hash:  "",
+			Hash:  "GMBaOXo2oGjO",
 			Error: repo.Error,
 		}
 	}
+
 	return domain.Service{
-		Hash:        "",
+		Hash:        "GMCbzxwxlNYo",
 		RawResponse: "question created successfully",
 	}
 }
@@ -141,12 +139,13 @@ func (se ServiceExercise) CreateAnswer(answer domain.Answer) domain.Service {
 	if repo.Error != nil {
 		log.Println(repo.Error)
 		return domain.Service{
-			Hash:  "",
+			Hash:  "GMOAzxBj08Ui",
 			Error: repo.Error,
 		}
 	}
+
 	return domain.Service{
-		Hash:        "",
+		Hash:        "GM0qIcIzIBA9",
 		RawResponse: "answer created successfully",
 	}
 }
