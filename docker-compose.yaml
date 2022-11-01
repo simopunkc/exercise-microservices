@@ -7,12 +7,12 @@ services:
     ports:
       - "8012:3306"
     volumes:
-      - ./user-service/auth.sql:/docker-entrypoint-initdb.d/user.sql
+      - ./user-service/init/user.sql:/docker-entrypoint-initdb.d/user.sql
     environment:
       MYSQL_USER: nonroot
       MYSQL_PASSWORD: nonroot
       MYSQL_ROOT_PASSWORD: nonroot
-      MYSQL_DATABASE: auth2
+      MYSQL_DATABASE: user
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-P", "8012"]
       timeout: 120s
@@ -25,12 +25,12 @@ services:
     ports:
       - "8011:3306"
     volumes:
-      - ./exercise-service/course.sql:/docker-entrypoint-initdb.d/exercise.sql
+      - ./exercise-service/init/exercise.sql:/docker-entrypoint-initdb.d/exercise.sql
     environment:
       MYSQL_USER: nonroot
       MYSQL_PASSWORD: nonroot
       MYSQL_ROOT_PASSWORD: nonroot
-      MYSQL_DATABASE: course2
+      MYSQL_DATABASE: exercise
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-P", "8011"]
       timeout: 120s
@@ -43,7 +43,7 @@ services:
   user-container:
     build:
       context: .
-      dockerfile: user.Dockerfile
+      dockerfile: ./user-service/deployment/user-service.Dockerfile
     container_name: user-api
     ports:
       - "8002:8080"
@@ -55,7 +55,7 @@ services:
   exercise-container:
     build:
       context: .
-      dockerfile: exercise.Dockerfile
+      dockerfile: ./exercise-service/deployment/exercise-service.Dockerfile
     container_name: exercise-api
     ports:
       - "8001:1234"

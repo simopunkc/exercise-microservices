@@ -27,4 +27,4 @@ can check this [documentation](./openapi.json) using [swagger](https://edit.swag
 
 ## DB Schema
 
-![db schema](./db_diagram.png)
+![db schema](./asset/db_diagram.png)

@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.8.3-MariaDB, for osx10.17 (arm64)
 --
--- Host: localhost    Database: course2
+-- Host: localhost    Database: exercise
 -- ------------------------------------------------------
 -- Server version	8.0.28
 
@@ -132,7 +132,7 @@ INSERT INTO `questions` VALUES
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'course2'
+-- Dumping routines for database 'exercise'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

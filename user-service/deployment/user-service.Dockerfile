@@ -18,7 +18,7 @@ FROM gcr.io/distroless/static-debian11
 
 WORKDIR /app
 
-COPY --from=build /app/env.example /app/.env
+COPY --from=build /app/config/env.example /app/config/.env
 COPY --from=build /app/user /app/user
 
 USER nonroot:nonroot

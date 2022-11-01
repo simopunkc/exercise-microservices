@@ -13,7 +13,7 @@ import (
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Llongfile)
-	err := godotenv.Load(".env")
+	err := godotenv.Load("./config/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}

@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.8.3-MariaDB, for osx10.17 (arm64)
 --
--- Host: localhost    Database: auth2
+-- Host: localhost    Database: user
 -- ------------------------------------------------------
 -- Server version	8.0.28
 
@@ -48,7 +48,7 @@ INSERT INTO `users` VALUES
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'auth2'
+-- Dumping routines for database 'user'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
