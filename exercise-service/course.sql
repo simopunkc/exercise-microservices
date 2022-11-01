@@ -35,8 +35,7 @@ CREATE TABLE `answers` (
   KEY `answers_FK` (`exercise_id`),
   KEY `answers_FK_1` (`question_id`),
   CONSTRAINT `answers_FK` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`id`),
-  CONSTRAINT `answers_FK_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`),
-  CONSTRAINT `answers_FK_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `answers_FK_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,9 +107,7 @@ CREATE TABLE `questions` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `questions_FK` (`exercise_id`),
-  KEY `questions_FK_1` (`creator_id`),
-  CONSTRAINT `questions_FK` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`id`),
-  CONSTRAINT `questions_FK_1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `questions_FK` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -132,38 +129,6 @@ INSERT INTO `questions` VALUES
 (9,1,'Jika 10 + 1 = 11, berapakah hasil dari 30 x 1?','31','13','4','30','d',10,1,'2022-06-15 14:15:47','2022-06-15 14:15:47'),
 (10,1,'Berapa hasil dari 9 + 3?','11','12','13','14','b',10,1,'2022-06-15 14:15:50','2022-06-15 14:15:50');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
-  `email` text NOT NULL,
-  `password` text NOT NULL,
-  `no_hp` text NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES
-(1,'super admin','admin@gmail.com','ini password','08171122233333','2022-06-15 13:02:09','2022-06-15 13:02:09'),
-(2,'ahsan','ahsan@mail.com','$2a$10$mM7/GAbcxBE1.Z2ALg83puE3Vcqn75UlAEexxa/xbIaQCmjb8PKoa','','2022-06-15 23:45:44','2022-06-15 23:45:44'),
-(3,'ahsan','ahsan2@mail.com','$2a$10$UOJAFVPbm4QtObtejd0fy.RduB5brNCqGx4Kv10XpAVxmYIhOT9Vi','','2022-06-16 19:21:49','2022-06-16 19:21:49');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
