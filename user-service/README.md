@@ -1,16 +1,21 @@
 # User Service
+
 Service for get user
 
 ## Dependencies
+
 - mysql
-- golang 1.17
+- golang 1.19
 
 ## API
+
 ### Public
+
 - login
 - register
 
 ### Internal
+
 - get by user_id
 
 ## Project Structure

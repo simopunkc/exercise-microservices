@@ -1,22 +1,43 @@
 version: "3.9"
 
 services:
-  db-container:
+  user-db-container:
+    image: mysql
+    container_name: user-db
+    ports:
+      - "8012:3306"
+    volumes:
+      - ./user-service/auth.sql:/docker-entrypoint-initdb.d/user.sql
+    environment:
+      MYSQL_USER: nonroot
+      MYSQL_PASSWORD: nonroot
+      MYSQL_ROOT_PASSWORD: nonroot
+      MYSQL_DATABASE: auth2
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-P", "8012"]
+      timeout: 120s
+      retries: 10
+    networks:
+      - mynet
+  exercise-db-container:
     image: mysql
     container_name: exercise-db
     ports:
-      - "3306"
+      - "8011:3306"
     volumes:
-      - ./exercise-service/course.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./exercise-service/course.sql:/docker-entrypoint-initdb.d/exercise.sql
     environment:
       MYSQL_USER: nonroot
       MYSQL_PASSWORD: nonroot
       MYSQL_ROOT_PASSWORD: nonroot
       MYSQL_DATABASE: course2
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-P", "8011"]
       timeout: 120s
       retries: 10
+    depends_on:
+      user-db-container:
+        condition: service_healthy
     networks:
       - mynet
   user-container:
@@ -27,7 +48,7 @@ services:
     ports:
       - "8002:8080"
     depends_on:
-      db-container:
+      user-db-container:
         condition: service_healthy
     networks:
       - mynet
@@ -39,7 +60,7 @@ services:
     ports:
       - "8001:1234"
     depends_on:
-      db-container:
+      exercise-db-container:
         condition: service_healthy
     networks:
       - mynet
