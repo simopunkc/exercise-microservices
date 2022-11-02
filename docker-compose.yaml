@@ -25,7 +25,8 @@ services:
     ports:
       - "8011:3306"
     volumes:
-      - ./exercise-service/init/exercise.sql:/docker-entrypoint-initdb.d/exercise.sql
+      # - ./exercise-service/init/exercise_local.sql:/docker-entrypoint-initdb.d/exercise.sql
+      - ./exercise-service/init/exercise_microservice.sql:/docker-entrypoint-initdb.d/exercise.sql
     environment:
       MYSQL_USER: nonroot
       MYSQL_PASSWORD: nonroot
